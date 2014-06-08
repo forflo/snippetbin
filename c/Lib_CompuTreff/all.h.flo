@@ -1,0 +1,50 @@
+//ggT(a,b)
+
+int ggT(int a,int b);
+
+/*
+##########
+Verkettete
+  Listen
+##########
+*/
+
+//Typendefinitionen
+#define LAENGE 80
+typedef struct s_element
+{
+	char inhalt[LAENGE];
+	struct s_element *next;
+}t_element;
+
+typedef struct
+{
+	struct s_element *erstesElement;
+	struct s_element *letztesElement;
+	int anzahlElemente;
+}t_Listenkopf;
+
+//Funktionsdeklarationen
+
+void initListe(t_Listenkopf *li);
+void pushFront(t_Listenkopf *li, char *str);
+void pushBack(t_Listenkopf *li, char *str);
+void printListe(t_Listenkopf *li);
+void popFront(t_Listenkopf *li,char *str);
+void popBack(t_Listenkopf *li,char *str);
+void popX(t_Listenkopf *li,char *str,int x);
+
+//Berechnung des Multiplikativen inversen für 2 TEILERFREMDE Zahlen !!!
+
+int mui(int d, int m);
+
+//Berechnung der Subfakultät
+
+int subfac(int n);
+
+//Grundfunktionen der Stochastik
+
+long v1(int m,int n);
+long v2(int m,int n);
+long k1(int m,int n);
+long k2(int m,int n);

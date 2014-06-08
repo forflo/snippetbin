@@ -1,0 +1,8 @@
+brauch rechte um all.h zu editieren
+
+
+Bitte folgendes einfügen
+
+long subfac(int n);
+
+//Kommentar in der Datei subfac.c in meinem  Ordner

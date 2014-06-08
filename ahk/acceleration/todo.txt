@@ -1,0 +1,12 @@
+- Windowexposé auf strg + alt + w --- (?)
+- Pfad von ausgewählter Datei oder Ordner in Zwischenablage sichern --- (?)
+- SVNUpdate auf strg + alt + ui --- done
+- SVNCommit auf strg + alit + c --- done
+- SVNLog auf ::log:: ...  --- done
+- GVIM installieren und Hotkey auf strg + alt + g --- done
+- Entfernen als Hotkey erstellen auf strg + alt + d ---  done
+- Automatisches reloaden des Skripts auf strg + alt + l --- done
+- Dateierweiterungen anpassen. Vim -> XML, txt, c, cpp, cs (C-Sharp) --- done
+- Kommentar-Generierungsfunktionen für AHK und C# einbauen --- done
+- Keylogger bauen (a-zA-Z0-9äüöß) Sondertasten(,;.:-_<>@#'+*´`?=)(/&%$§"!°^) --- done
+

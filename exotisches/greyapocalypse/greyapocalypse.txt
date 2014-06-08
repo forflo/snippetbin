@@ -1,0 +1,45 @@
+http://nick.geek.nz/greyapocalypse/
+
+Foo:
+
+infinite {
+  vv
+  repeat(3){
+    +>
+  }
+  v<<<
+  repeat(7){
+    +v
+  }
+  repeat(4){^}
+  >+>>
+  repeat(4){^}
+  >
+  +>+>+
+  v+v+v+v+v+v+v+
+  <+<+
+  repeat(7){^+}
+  >>>+>+>+
+  repeat(7){v+}
+  <+<+
+  repeat(7){<}
+  repeat(9){^}
+}
+
+Penis:
+
+infinite{
+	vvvvvvvvv
+	>^+^+>^+>+>
+	v+v+v
+	<+<+
+	<>>>>
+	^+^+>^+
+	>+>v+v+v
+	<+<+<^^^
+	>^+^+^+^+^+^
+	<+<+<
+	v+v+v+v+v+v
+	<<<
+	^^^^^^
+}

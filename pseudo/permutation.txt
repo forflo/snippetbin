@@ -1,0 +1,24 @@
+#Autor: Florian Mayer
+#Datum: 11.September.2013
+#Zweck: Studie zum Verständnis eines Algorithmus der
+#	die Objekte des Arrays A permutiert
+#########
+
+int fac(int n, int x){
+	if (n==0) return x
+	fac(n-1, n*x);
+	return;
+}
+
+A[3]={1,2,3}
+m[fac(A.size())][A.size()]
+
+perm(int step, arr A){
+	c1 = 0; c2 = 0; if (step > m[0].size()) return;
+	for(i=0; i<fac(A.size());i++){
+		for(j=0; j<fac(A.size()-step);j++){
+			m[c1++][step] = A[c2];
+		}
+		f(++step, A.ohne(A[c2++]));
+	}	
+}

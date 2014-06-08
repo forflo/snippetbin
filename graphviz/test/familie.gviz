@@ -1,0 +1,4 @@
+digraph familie {
+	Franc  -> Florian, Philipp [label="ist Vater von"]
+	Philipp, Florian -> Franc [label="sind Söhne von"]
+}

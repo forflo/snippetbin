@@ -1,0 +1,8 @@
+digraph expression {
+	nodesep = 0.7
+	s -> exp
+	exp -> exp1
+	exp -> exp2
+	exp1 -> 3
+	exp2 -> 4
+}

@@ -1,0 +1,19 @@
+Call ist ein programm, das folgende Funktionen bereitstellt
+
+1) Ein Aufruf wie z.B.
+$ call -t xy '<code der programmiersprache xy>'
+führt dazu, dass zunächst der angegebene Code mithilfe
+des moduls xy (teil von call) interpretiert bzw. kompiliert
+wird und dann in die eine Datenbank geschrieben wird. Der Code
+wird in einer Tabelle mit dem Schema Code=(ID, BLOB) abgespeichert,
+wobei ID ein md5-Hash ist. Beim Aufruf des Tools mit einem
+vorher verwendeten identischen Codestring, wird zunächst der
+Hash berechnet und dann in der Datenbank nachgesehen, ob
+die Binary bereits vorhanden ist. Wenn ja, wird die BLOB ausgeführt,
+und für eine gewisse Zeit im Speicher gehalten, wenn nein, wird 
+der Code kompiliert, ein Hash berechnet, die Binärdatei zur Ausführung
+gebracht und in der Datenbank abgespeichert.
+
+Architektur:
+
+

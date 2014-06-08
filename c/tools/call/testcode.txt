@@ -1,0 +1,11 @@
+#include <st.h>
+
+int main(foid){
+	print dies ist ein pseudocode!!!;
+	;
+	for(immer){
+		das ist schön
+	}
+}
+
+int foo(int a, int b, int c);
