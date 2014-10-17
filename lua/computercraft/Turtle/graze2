@@ -1,0 +1,147 @@
+version = 1.0
+
+print("grazing begins...")
+print("graze version: " .. version)
+
+ref=10 --[[ number of refueling units to take ]]--
+blocks=0
+steps=0
+l=18
+d=3
+h=12
+
+print("Starting to graze matrix")
+print("lenght: " .. l )
+print("depth: " .. d )
+print("height: " .. h)
+
+function testFuel()
+	n = l * d * h
+	if n>turtle.getFuelLevel() then
+		return false
+	else
+		return true
+	end
+end
+
+function refuel()
+	print("refueling...")
+	for i=1,16 do
+		turtle.select(i)
+		if turtle.refuel(ref) then
+			print("found fuel source at slot " .. i)
+			print("taking " .. ref .. " units")
+			break
+		end
+	end
+	print("new fuel level: " .. turtle.getFuelLevel())
+end
+
+function step()
+	steps = steps + 1
+end
+
+function block()
+	blocks = blocks + 1
+end
+
+function right()
+  turtle.turnRight()
+  if turtle.detect() then
+    turtle.dig()
+	block()
+  end
+  step()
+  turtle.forward()
+  turtle.turnLeft()
+end
+
+function left()
+  turtle.turnLeft()
+  if turtle.detect() then
+    turtle.dig()
+	block()
+  end
+  step()
+  turtle.forward()
+  turtle.turnRight()
+end
+
+function up()
+	if turtle.detectUp() then
+		block()
+		turtle.digUp()
+	end
+	step()
+	turtle.up()
+end
+
+function down()
+	if turtle.detectDown() then
+		block()
+		turtle.digDown()
+	end
+	step()
+	turtle.down()
+end
+
+if testFuel() then
+	print("starting grazing!")
+	
+	for i=1,d do
+		--[[ check if we need to refuel. The 2 is a blanket value]]--
+		if turtle.getFuelLevel()< 2*l*h then
+			refuel()
+		end
+	
+		--[[ Wenn l ungerade ist, bleibt der Roboter nach einem Slice oben stehen. Daher muss bei ungeraden Längen in der innersten Schleife dieses Verhalten umgekehrt werden ]]-- 
+		if l%2==1 then
+			if i%2==1 then
+				inner = 1
+			else
+				inner = 0
+			end
+		else
+			inner = 1
+		end
+		
+		for j=1,l do
+			for k=1,h do
+			--[[ graebt den Block vor dem Turtle ]]--
+				if turtle.detect() then
+					turtle.dig()
+					block()
+				end
+				
+				--[[ abwechselnd nach oben und unten graben ]]--
+				if j%2==inner then
+					up()
+				else
+					down()
+				end
+			end
+		
+			--[[ abwechselnd nach links oder rechts fahren ]]--
+			if i%2==1 then
+				right()
+			else
+				left()
+			end
+		end
+		
+		print("slice " .. i .. "/" .. d .. " done!")
+		if turtle.detect() then
+			block()
+			turtle.dig()
+		end
+		turtle.forward()
+	end
+
+else
+	print("not enough fuel!")
+	print("please refuel!")
+end
+
+print("Stats:")
+print("mined " .. blocks .. " blocks")
+print("ran " .. steps .. " steps")

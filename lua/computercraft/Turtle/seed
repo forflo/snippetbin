@@ -1,0 +1,131 @@
+version = 1.0
+
+print("grazing begins...")
+print("graze version: " .. version)
+
+ref=10 --[[ number of refueling units to take ]]--
+blocks=0
+steps=0
+l=18
+w=12 --[[width = number of rows]]--
+
+print("Starting to seed matrix")
+print("lenght: " .. l )
+print("width: " .. d )
+
+function testFuel()
+	n = 4*l*w
+	if n>turtle.getFuelLevel() then
+		return false
+	else
+		return true
+	end
+end
+
+function refuel()
+	print("refueling...")
+	for i=1,16 do
+		turtle.select(i)
+		if turtle.refuel(ref) then
+			print("found fuel source at slot " .. i)
+			print("taking " .. ref .. " units")
+			break
+		end
+	end
+	print("new fuel level: " .. turtle.getFuelLevel())
+end
+
+function step()
+	steps = steps + 1
+end
+
+function block()
+	blocks = blocks + 1
+end
+
+function right(x)
+	turtle.turnRight()
+	for i=1,x do
+		if turtle.detect() then
+			turtle.dig()
+			block()
+  		end
+  		step()
+  		turtle.forward()
+  	end
+  	turtle.turnLeft()
+end
+
+function left(x)
+  turtle.turnLeft()
+	for i=1,x do
+	  if turtle.detect() then
+		turtle.dig()
+		block()
+	  end
+	  step()
+	  turtle.forward()
+	end
+  turtle.turnRight()
+end
+
+function up(x)
+	for k=1,x do
+		if turtle.detectUp() then
+			block()
+			turtle.digUp()
+		end
+		step()
+	end
+	turtle.up()
+end
+
+function down(x)
+	for k=1,x do
+		if turtle.detectDown() then
+			block()
+			turtle.digDown()
+		end
+		step()
+	end
+	turtle.down()
+end
+
+if testFuel() then
+	print("starting grazing!")
+	
+	for i=1,w do
+		--[[ check if we need to refuel. The 2 is a blanket value]]--
+		if turtle.getFuelLevel()< l*2 then
+			refuel()
+		end
+	
+		for j=1,l do
+			turtle.down(2)
+			turtle.up(2)
+
+			if i%2==1 then
+				right(2)
+			else
+				left(2)
+			end
+		end
+		
+		print("row " .. i .. "/" .. w .. " done!")
+		for k=1,2 do
+			if turtle.detect() then
+				block()
+				turtle.dig()
+			end
+			turtle.forward()
+		end
+	end
+
+else
+	print("not enough fuel!")
+	print("please refuel!")
+end
+
+print("Stats:")
+print("mined " .. blocks .. " blocks")
+print("ran " .. steps .. " steps")

@@ -1,0 +1,14 @@
+print("Starting Client ...")
+
+ZEIGE "Starting Client"
+
+SOLANGE wahr
+	EMPFRANGE rednet Nachricht x
+	WENN x == "update" DANN
+		EMPFRANGE Nachricht y
+		SCHREIBE Inhalt von y in die Datei client.lua
+		REBOOTE
+	SONST
+		VERZWEIGE client.lua
+	ENDE
+ENDE

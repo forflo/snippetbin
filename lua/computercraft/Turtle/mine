@@ -1,0 +1,55 @@
+depth = 40
+forward = 0
+
+blocks = 0
+
+while 1 == 1 do
+
+  if turtle.getFuelLevel() < 200 then
+    for i = 1, 16, 1 do
+      turtle.select(i)
+      print("refuling...")
+      turtle.refuel()
+      print("new fuel level:" .. turtle.getFuelLevel())
+    end
+  end
+
+  for i = 1, depth, 1 do
+    if i == 1 then
+      if turtle.detect() then
+        turtle.dig()
+        blocks = blocks + 1
+      end
+    else
+      if turtle.detect() then
+        turtle.dig()
+        turtle.digUp()
+        turtle.digDown()
+        blocks = blocks + 3
+      end
+    end
+    if turtle.forward() then
+      forward = forward + 1
+    end
+  end
+  
+  turtle.turnLeft()
+  turtle.turnLeft()
+  
+  for i = 1, forward, 1 do
+    while turtle.detect() do
+      os.sleep(1)
+      turtle.dig()
+      blocks = blocks + 1
+    end
+    turtle.forward()
+  end
+  
+  turtle.turnLeft()
+  turtle.forward()
+  turtle.turnLeft()
+
+  forward = 0
+
+  print("mined " .. blocks .. " blocks")
+end

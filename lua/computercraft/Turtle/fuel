@@ -1,0 +1,2 @@
+fuel = turtle.getFuelLevel()
+print("The current fuel level is: " .. fuel)

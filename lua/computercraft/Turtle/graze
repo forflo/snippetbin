@@ -1,0 +1,92 @@
+version = 1.0
+
+print("grazing begins...")
+print("graze version: " .. version)
+
+blocks=0
+steps=0
+l=5
+d=5
+h=5
+
+print("Starting to graze matrix")
+print("lenght: " .. l )
+print("depth: " .. d )
+print("height: " .. h)
+
+function step()
+	steps = steps + 1
+end
+
+function block()
+	blocks = blocks + 1
+end
+
+function right()
+  turtle.turnRight()
+  if turtle.detect() then
+    turtle.dig()
+	block()
+  end
+  step()
+  turtle.forward()
+  turtle.turnLeft()
+end
+
+function left()
+  turtle.turnLeft()
+  if turtle.detect() then
+    turtle.dig()
+	block()
+  end
+  step()
+  turtle.forward()
+  turtle.turnRight()
+end
+
+--[[
+in lua for i=1,5,1 iterates from
+one to five both included.
+=> 1, 2, 3, 4, 5
+]]--
+for i=1,d do
+  for j=1,l do
+    for k=1,h do
+      if turtle.detect() then
+        turtle.dig()
+		block()
+      end
+	  
+      if j%2==1 then
+        if turtle.detectUp() then
+          turtle.digUp()
+		  block()
+        end
+		step()
+        turtle.up()
+      else
+        if turtle.detectDown() then
+          turtle.digDown()
+		  block()
+        end
+		step()
+        turtle.down()
+      end
+    end
+	
+    if i%2==1 then
+	  print("turning right")
+      right()
+    else
+	  print("turning left")
+      left()
+    end
+  end
+  print("one slice forward")
+  step()
+  turtle.forward()
+end
+
+print("Stats:")
+print("mined " .. blocks .. " blocks")
+print("ran " .. steps .. " steps")
