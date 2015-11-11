@@ -1,0 +1,224 @@
+Syntax in bnf
+#############
+package_list ::= "(" package_name steplist ")";
+package_name ::= "(" alphanum_string ")";
+steplist ::= step | steplist step;
+step ::= step_name platform_actions;
+step_name ::= "(" alphanum_string ")";
+platform_actions ::= command_list 
+					| command
+					| file_action;
+command_list ::= platform_name ":" "{" command_string "}"
+command ::= platform_name ":" [alphanum_string "@"] command_line
+file_action ::= "copy" path { platform_name "->" path }
+
+file_name ::= <todo regex>
+command_string ::= <defined by scanner>
+command_line ::= <define by scanner>
+
+
+((init)
+	. functions/logger.sh
+	. functions/global.sh
+)
+
+((awesome)
+	(init)
+		run on arch: {
+			echo Dies ist ein Test
+			echo für mehr als eine Zeile
+			echo Shellcode
+		}
+		
+		macosx: "stupid_script.sh"
+		macosx: root@"rootscript.sh"
+
+		debian: {
+			echo Noch mehr müll
+		}
+	(install)
+		arch: "pacman -S awesome"
+		debian: "apt-get install awesome"
+	(config)
+		copy rc.lua
+			arch -> /etc/xdg/awesome/rc.lua
+			debian ->
+			macosx -> /opt/.../awesome/rc.lua
+	(finish)
+		arch: "scripts/awesome.config.sh"
+		debian: root@"chmod 750 /etc/vpnc/default.conf"
+	(log)
+		all: "echo Installation of package awesome finished
+)
+
+((ranger)
+	(init)
+		all: {
+			echo Installing the ranger filesystem manager
+		}
+
+	(install)
+		arch: root@"pacman -S ranger"
+		debian: root@"apt-get install ranger"
+		macosx: root@"port install ranger"
+	(config)
+		copy ranger.conf
+			arch -> ~/.config/ranger/rc.conf		
+	(finish)
+	(log)
+		all: "echo Installation of ranger successfully finished"
+)
+
+((cowsay)
+	(init)
+		all: {
+			echo Installing cowsay
+		}
+
+	(install)
+		arch: root@"pacman -S cowsay"
+		debian: root@"apt-get install cowsay"
+		macosx: root@"port install cowsay"
+
+	(config)
+	(finish)
+	(log)
+		all: "echo Installation of cowsay successfully finished"
+)
+
+((gimp)
+	(init)
+		all: {
+			echo Installing gimp
+		}
+
+	(install)
+		arch: root@"pacman -S gimp"
+		debian: root@"apt-get install gimp"
+		macosx: root@"port install cowsay"
+
+	(config)
+	(finish)
+	(log)
+		all: {
+			echo Installation of gimp successfully finished
+		}
+)
+
+((perl)
+	(init)
+		all: {
+			echo Will install:
+			echo cpan
+			echo perl
+			echo cpanm
+		}
+	(install)
+		arch: root@{
+			pacman -S perl
+		}
+		macosx: root@{
+			port install perl
+		}
+	(config)
+		all: {
+			echo Installing cpanminus
+			cpan App::cpanminus && echo cpanminus installation successful
+
+			echo Installing required perl modules
+			cpanm Path::Class
+			cpanm Devel::REPL
+			# additional dependencies of Devel::REPL
+			# they are listet as optional, but they're not
+			cpanm PPI
+			cpanm Text::ASCIITable
+			cpanm --force Data::Dump::Streamer
+			cpanm Lexical::Persistence
+		}
+	(finish)
+	(log)
+		all: {
+			echo Installation of per successfully finished
+		}
+)
+
+((xscreensaver)
+	(init)
+		all: {
+			echo Installing xscreensaver
+		}
+	(install)
+		arch: root@"pacman -Sy xscreensaver"
+		
+	(config)
+		copy xscreensaver_conf
+			arch -> ~/.xscreensaver
+
+		copy xinit_xscreensaver
+			arch -> /etc/X11/xinit/xinitrc.d/50-xscreensaver
+
+	(finish)
+		all: {
+			chmod 600 ~/.xscreensaver
+			chmod 755 /etc/X11/xinit/xinitrc.d/40-xscreensaver
+		}
+	(log)
+		all: {
+			echo Installation of xscreensaver successfully finished
+		}
+)
+
+((network)
+	(init)
+		all: {
+			echo Installing network profiles
+		}
+		copy cert_hsro.cert
+			arch -> /etc/ssl/certs/cert_hsro.cert
+			debian -> /etc/ssl/certs/cert_hsro.cert
+	(config)
+		copy net_ethernet_home
+			arch -> /etc/netctl/eth_home
+		copy net_wireless_fh_eduroam
+			arch -> /etc/netctl/wls_eduroam
+		copy net_wireless_home_flair
+			arch -> /etc/netctl/wls_flair
+	(log)
+		all: {
+			echo Finished installation of Network-Profiles
+		}
+)
+
+((mpd)
+	(init)
+		all: {
+			echo Installing mpd
+		}
+	(install)
+		arch: root@"pacman -S mpd"
+	(config)
+	(log)
+		all: {
+			echo Installation of mpd has been successful
+		}
+)
+
+((mpd_clients)
+	(init)
+		all: {
+			echo Installing mpd clients
+			echo +mpc
+			echo +gmpc
+		}
+	(install)
+		arch: {
+			pacman -S gmpc
+			pacman -S mpc
+		}
+	(config)
+	(finish)
+	(log)
+		all: {
+			echo Installation of mpd_clients has been successful
+		}
+)
